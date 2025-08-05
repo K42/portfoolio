@@ -34,5 +34,17 @@
     "name": "Landscape",
     "description": "Moody, atmospheric shots from the woods.",
     "cover": "cover.jpg"
+  },
+  {
+    "path": "ptaki",
+    "name": "Birding",
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.jpg"
+  },
+  {
+    "path": "zwierza",
+    "name": "Animals",
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.jpg"
   }
 ]

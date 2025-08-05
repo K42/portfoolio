@@ -2,21 +2,21 @@
   {
     "file": "DSC_8763.jpg",
     "title": "DSC_8763",
-    "camera": "",
-    "lens": "",
-    "focal": "",
-    "aperture": "",
-    "shutter": "",
-    "iso": ""
+    "camera": "Nikon Z6 II",
+    "lens": "NIKKOR Z 28-75mm f/2.8",
+    "focal": "28.0 mm",
+    "aperture": 6.3,
+    "shutter": "1/1600",
+    "iso": 400
   },
   {
     "file": "DSC_8821.jpg",
     "title": "DSC_8821",
-    "camera": "",
-    "lens": "",
-    "focal": "",
-    "aperture": "",
-    "shutter": "",
-    "iso": ""
+    "camera": "Nikon Z6 II",
+    "lens": "NIKKOR Z 28-75mm f/2.8",
+    "focal": "28.0 mm",
+    "aperture": 2.8,
+    "shutter": "1/640",
+    "iso": 400
   }
 ]

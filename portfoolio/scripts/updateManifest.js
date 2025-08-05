@@ -7,7 +7,9 @@ const albumsList = [
     "brenna2024",
     "landscape",
     "sojki2025",
-    "natura"
+    "natura",
+    "ptaki",
+    "zwierza"
 ]
 
 albumsList.forEach(album => {
