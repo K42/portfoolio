@@ -1,11 +1,13 @@
 // --- Configuration ---
 
 const equipment = [
-  "Canon EOS R5",
-  "RF 24-70mm f/2.8L",
-  "Sigma Art 35mm f/1.4",
-  "DJI Mavic Air 2",
-  "Manfrotto Tripod"
+  "Nikon Z6 II",
+  "Nikkor Z 28-75 f/2.8",
+  "Nikkor Z 280-600 f/4.5-5.6",
+  "Sigma Art 50mm f/1.4",
+  "Helios 44-2 58mm f/2",
+  "Ulanzi & COMAN ZERO Y",
+  "Sirui PH-10"
 ];
 
 const bio = `Kamil. Leśny Nerd. Black Kestrel Photography`;
@@ -186,7 +188,7 @@ function openLightbox(photoIdx) {
     // Animate size change
     wrapper.style.width = prevWidth + "px";
     wrapper.style.height = prevHeight + "px";
-    void wrapper.offsetWidth; // Force reflow
+    //void wrapper.offsetWidth; // Force reflow
     wrapper.style.width = newWidth + "px";
     wrapper.style.height = newHeight + "px";
   };

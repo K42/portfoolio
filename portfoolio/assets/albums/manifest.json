@@ -13,7 +13,7 @@
   },
   {
     "path": "grzyby",
-    "name": "Grzyby",
+    "name": "Fungi",
     "description": "Moody, atmospheric shots from the woods.",
     "cover": "cover.png"
   },
@@ -25,13 +25,13 @@
   },
   {
     "path": "natura",
-    "name": "Natura",
+    "name": "Nature",
     "description": "Moody, atmospheric shots from the woods.",
     "cover": "cover.jpg"
   },
   {
     "path": "landscape",
-    "name": "Krajobraz",
+    "name": "Landscape",
     "description": "Moody, atmospheric shots from the woods.",
     "cover": "cover.jpg"
   }
