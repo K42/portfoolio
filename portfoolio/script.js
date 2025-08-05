@@ -1,16 +1,4 @@
 // --- Configuration ---
-const albums = [
-  {
-    title: "Urban Shadows",
-    folder: "album1",
-    cover: "01.jpg"
-  },
-  {
-    title: "Silent Forest",
-    folder: "album2",
-    cover: "01.jpg"
-  }
-];
 
 const equipment = [
   "Canon EOS R5",
@@ -20,7 +8,7 @@ const equipment = [
   "Manfrotto Tripod"
 ];
 
-const bio = `Jane Doe is a fine art photographer whose work explores the interplay of light and shadow in urban and natural landscapes. Her moody, evocative images have been featured in international exhibitions and publications.`;
+const bio = `Kamil. Leśny Nerd. Black Kestrel Photography`;
 
 // --- Cached DOM Elements ---
 let cachedElements = {};
@@ -80,20 +68,26 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderAlbums() {
   const grid = getElement("albums-grid");
   if (!grid) return;
-  
-  const fragment = document.createDocumentFragment();
-  albums.forEach((album, idx) => {
-    const div = document.createElement("div");
-    div.className = "album-thumb";
-    div.innerHTML = `
-      <img src="assets/albums/${album.folder}/${album.cover}" alt="${album.title}" loading="lazy">
-      <div class="album-title">${album.title}</div>
-    `;
-    div.addEventListener("click", () => openAlbum(idx));
-    fragment.appendChild(div);
+
+  var albums = fetch('./assets/albums/manifest.json')
+  .then(response => response.json())
+  .then(data => {
+    const fragment = document.createDocumentFragment();
+    data.forEach((album, idx) => {
+      const div = document.createElement("div");
+      div.className = "album-thumb";
+      div.innerHTML = `
+        <img src="assets/albums/${album.folder}/${album.cover}" alt="${album.title}" loading="lazy">
+        <div class="album-title">${album.title}</div>
+      `;
+      div.addEventListener("click", () => openAlbum(idx));
+      fragment.appendChild(div);
+    });
+    grid.innerHTML = "";
+    grid.appendChild(fragment);
   });
-  grid.innerHTML = "";
-  grid.appendChild(fragment);
+
+  
 }
 
 function renderPhotographer() {
