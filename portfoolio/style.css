@@ -140,28 +140,29 @@ main {
 .equipment {
   flex: 1 1 220px;
   min-width: 220px;
-  max-width: 620px;
+  max-width: 720px;
   margin: 1rem;
   text-align: right; /* Align text to the right */
 }
 .bio {
   flex: 1 1 220px;
   min-width: 220px;
-  max-width: 620px;
+  max-width: 720px;
   margin: 1rem;
   text-align: left; /* Align text to the right */
 }
 .portrait {
-  flex: 0 1 220px;
+  flex: 0 1 120px;
   display: flex;
   justify-content: center; /* Center the portrait */
   align-items: center;
-  margin: 1rem;
+  margin: 0.2rem;
 }
 .portrait img {
   width: 180px;
   height: 180px;
   object-fit: cover;
+  filter: grayscale(0.2) brightness(0.5);
   border-radius: 50%;
   border: 6px solid #222;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
