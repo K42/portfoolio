@@ -13,7 +13,6 @@
   </header>
   <main>
     <section id="albums-section">
-      <h2>Photo Albums</h2>
       <div id="albums-grid"></div>
     </section>
     <section id="photographer-section">
@@ -37,7 +36,9 @@
       <button class="close-btn">&times;</button>
       <div class="lightbox-img-exif-container">
         <div class="lightbox-thumbs" id="lightbox-thumbs"></div>
-        <img id="lightbox-img" src="" alt="">
+        <div id="lightbox-img-wrapper">
+          <img id="lightbox-img" src="" alt="">
+        </div>
         <div id="exif-info">
           <div class="exif-row"><span class="exif-label">Camera:</span> <span id="exif-camera"></span></div>
           <div class="exif-row"><span class="exif-label">Lens:</span> <span id="exif-lens"></span></div>

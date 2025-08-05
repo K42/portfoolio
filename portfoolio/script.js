@@ -98,8 +98,40 @@ function fetchAlbumPhotos(folder) {
 function openLightbox(photoIdx) {
   currentPhotoIdx = photoIdx;
   const photo = currentPhotos[photoIdx];
-  const lightbox = document.getElementById("lightbox");
-  document.getElementById("lightbox-img").src = photo.src;
+  const img = document.getElementById("lightbox-img");
+  const wrapper = document.getElementById("lightbox-img-wrapper");
+
+  // Measure current size
+  const prevWidth = wrapper.offsetWidth;
+  const prevHeight = wrapper.offsetHeight;
+
+  img.onload = function() {
+    // Calculate new size
+    let newWidth = img.naturalWidth;
+    let newHeight = img.naturalHeight;
+    const maxW = window.innerWidth * 0.5;
+    const maxH = window.innerHeight * 0.6;
+    // Scale down if needed
+    const widthRatio = newWidth / maxW;
+    const heightRatio = newHeight / maxH;
+    if (widthRatio > 1 || heightRatio > 1) {
+      const scale = Math.max(widthRatio, heightRatio);
+      newWidth = newWidth / scale;
+      newHeight = newHeight / scale;
+    }
+    // Set wrapper to previous size
+    wrapper.style.width = prevWidth + "px";
+    wrapper.style.height = prevHeight + "px";
+    // Force reflow
+    void wrapper.offsetWidth;
+    // Animate to new size
+    wrapper.style.width = newWidth + "px";
+    wrapper.style.height = newHeight + "px";
+  };
+
+  // Set new image src (triggers onload)
+  img.src = photo.src;
+
   // Fill exif-info fields
   document.getElementById("exif-camera").textContent = photo.camera || '';
   document.getElementById("exif-lens").textContent = photo.lens || '';
@@ -119,7 +151,7 @@ function openLightbox(photoIdx) {
       }
     }
   }, 0);
-  lightbox.classList.remove("hidden");
+  document.getElementById("lightbox").classList.remove("hidden");
   updateLightboxControls();
   // Always re-attach close button event
   const closeBtn = document.querySelector(".close-btn");
