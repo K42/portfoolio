@@ -35,16 +35,18 @@
   <div id="lightbox" class="hidden">
     <div class="lightbox-content">
       <button class="close-btn">&times;</button>
-      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-img-exif-container">
+        <img id="lightbox-img" src="" alt="">
+        <div id="exif-data"></div>
+      </div>
       <div class="lightbox-caption">
         <h4 id="photo-title"></h4>
         <p id="photo-desc"></p>
-        <div id="exif-data"></div>
       </div>
       <div class="lightbox-controls">
         <button id="prev-btn">&#8592; Prev</button>
-        <button id="next-btn">Next &#8594;</button>
         <button id="back-btn">Back to Album</button>
+        <button id="next-btn">Next &#8594;</button>
       </div>
     </div>
   </div>

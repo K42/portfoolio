@@ -121,8 +121,8 @@ function animateLightboxContent(callback) {
     content.classList.add('animating');
     setTimeout(() => {
       content.classList.remove('animating');
-    }, 1000); // match CSS animation duration
-  }, 1000); // match CSS animation duration
+    }, 800); // match CSS animation duration
+  }, 800); // match CSS animation duration
 }
 
 // Update prev/next handlers to animate
