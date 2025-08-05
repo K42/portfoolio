@@ -27,6 +27,20 @@ const bio = `Jane Doe is a fine art photographer whose work explores the interpl
 document.addEventListener("DOMContentLoaded", () => {
   renderAlbums();
   renderPhotographer();
+  setRandomBackground();
+  animateBackgroundPan();
+  // Parallax effect for background
+  const bg = document.getElementById('dynamic-bg');
+  if (bg) {
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      bg.style.transform = `scale(1.15) translate(${x * 18}px, ${y * 18}px)`;
+    });
+    document.addEventListener('mouseleave', () => {
+      bg.style.transform = 'scale(1.15) translate(0,0)';
+    });
+  }
 });
 
 // --- Render Albums Grid ---
@@ -156,6 +170,15 @@ function openLightbox(photoIdx) {
   // Always re-attach close button event
   const closeBtn = document.querySelector(".close-btn");
   if (closeBtn) closeBtn.onclick = closeLightbox;
+  // Attach click-outside-to-close every time popup is shown
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox) {
+    lightbox.onclick = function(e) {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    };
+  }
 }
 
 function renderLightboxThumbs() {
@@ -214,6 +237,20 @@ function closeLightbox() {
   document.getElementById("lightbox").classList.add("hidden");
 }
 
+// Keyboard controls for lightbox (only when visible)
+function handleLightboxKey(e) {
+  const lightbox = document.getElementById("lightbox");
+  if (!lightbox || lightbox.classList.contains("hidden")) return;
+  if (e.key === "ArrowLeft") {
+    if (currentPhotoIdx > 0) animatePhotoFade(() => openLightbox(currentPhotoIdx - 1));
+  } else if (e.key === "ArrowRight") {
+    if (currentPhotoIdx < currentPhotos.length - 1) animatePhotoFade(() => openLightbox(currentPhotoIdx + 1));
+  } else if (e.key === "Escape") {
+    closeLightbox();
+  }
+}
+document.addEventListener("keydown", handleLightboxKey);
+
 // --- EXIF Extraction (Browser limitations) ---
 function extractEXIF(imgUrl) {
   // Browsers can't natively extract EXIF without a library.
@@ -225,6 +262,45 @@ function extractEXIF(imgUrl) {
 function formatEXIF(exif) {
   // exif: {key: value, ...}
   return Object.entries(exif).map(([k, v]) => `<div><b>${k}:</b> ${v}</div>`).join("");
+}
+
+// --- Dynamic Background ---
+function setRandomBackground() {
+  // Gather all photo srcs from all albums
+  const albumManifests = [
+    'assets/albums/album1/manifest.json',
+    'assets/albums/album2/manifest.json'
+    // Add more album manifest paths if needed
+  ];
+  let allPhotos = [];
+  let loaded = 0;
+  albumManifests.forEach((manifest, idx) => {
+    fetch(manifest)
+      .then(r => r.json())
+      .then(list => {
+        allPhotos = allPhotos.concat(list.map(photo => `assets/albums/${manifest.split('/')[2]}/${photo.file}`));
+        loaded++;
+        if (loaded === albumManifests.length && allPhotos.length > 0) {
+          const randomSrc = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+          const bg = document.getElementById('dynamic-bg');
+          if (bg) {
+            bg.style.backgroundImage = `url('${randomSrc}')`;
+          }
+        }
+      });
+  });
+}
+
+function animateBackgroundPan() {
+  const bg = document.getElementById('dynamic-bg');
+  if (!bg) return;
+  // Start at left
+  bg.style.transform = 'scale(1.15) translateX(0)';
+  // Animate to right over 60s (adjust as needed)
+  setTimeout(() => {
+    bg.style.transition = 'transform 60s linear';
+    bg.style.transform = 'scale(1.15) translateX(-12vw)';
+  }, 300); // slight delay for initial load
 }
 
 // --- Page Transition Animation ---
