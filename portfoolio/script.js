@@ -64,6 +64,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
   }
+
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  if (lightboxImg) {
+    lightboxImg.addEventListener("click", () => {
+      if (lightboxImg.classList.contains("zoomed")) {
+        lightboxImg.classList.remove("zoomed"); // Revert to original size
+      } else {
+        lightboxImg.classList.add("zoomed"); // Fill the lightbox
+      }
+    });
+  }
 });
 
 // --- Optimized Album Rendering ---
@@ -226,7 +238,10 @@ function openLightbox(photoIdx) {
 function renderLightboxThumbs() {
   const thumbs = getElement("lightbox-thumbs");
   if (!thumbs) return;
-  
+
+  // Save the current scroll position
+  const scrollPosition = thumbs.scrollTop;
+
   const fragment = document.createDocumentFragment();
   currentPhotos.forEach((photo, idx) => {
     const img = document.createElement("img");
@@ -239,11 +254,14 @@ function renderLightboxThumbs() {
     };
     fragment.appendChild(img);
   });
-  
+
   thumbs.innerHTML = "";
   thumbs.appendChild(fragment);
-  
-  // Scroll selected into view
+
+  // Restore the scroll position
+  thumbs.scrollTop = scrollPosition;
+
+  // Scroll selected thumbnail into view
   const selected = thumbs.querySelector('.selected');
   if (selected) {
     selected.scrollIntoView({ block: 'center', behavior: 'smooth' });
@@ -303,8 +321,8 @@ function handleLightboxKey(e) {
 // --- Optimized Background Functions ---
 function setRandomBackground() {
   const albumManifests = [
-    'assets/albums/album1/manifest.json',
-    'assets/albums/album2/manifest.json'
+    'assets/albums/brenna2024/manifest.json',
+    'assets/albums/landscape/manifest.json'
   ];
   
   Promise.all(albumManifests.map(manifest => 
