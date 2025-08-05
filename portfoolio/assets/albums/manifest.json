@@ -1,0 +1,12 @@
+[
+  {
+    "path": "album1",
+    "name": "Urban Shadows",
+    "description": "Nightlife and candid moments in the city."
+  },
+  {
+    "path": "album2",
+    "name": "Silent Forest",
+    "description": "Moody, atmospheric shots from the woods."
+  }
+]

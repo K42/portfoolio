@@ -108,7 +108,7 @@ function fetchAlbumPhotos(folder) {
     .then(r => r.json())
     .then(list =>
       list.map(photo => ({
-        src: `assets/albums/${folder}/${photo.file}`,
+        src: photo.file.startsWith('http') ? photo.file : `assets/albums/${folder}/${photo.file}`,
         desc: `assets/albums/${folder}/${photo.file.replace(/\.jpg$/i, '.txt')}`,
         title: photo.title || photo.file.replace(/\.jpg$/i, ''),
         camera: photo.camera || '',
