@@ -100,9 +100,6 @@ function openLightbox(photoIdx) {
   const photo = currentPhotos[photoIdx];
   const lightbox = document.getElementById("lightbox");
   document.getElementById("lightbox-img").src = photo.src;
-  // No filename or title in caption
-  // Load description
- // fetch(photo.desc)
   // Fill exif-info fields
   document.getElementById("exif-camera").textContent = photo.camera || '';
   document.getElementById("exif-lens").textContent = photo.lens || '';
@@ -110,8 +107,45 @@ function openLightbox(photoIdx) {
   document.getElementById("exif-aperture").textContent = photo.aperture || '';
   document.getElementById("exif-shutter").textContent = photo.shutter || '';
   document.getElementById("exif-iso").textContent = photo.iso || '';
+  // Render thumbnails
+  renderLightboxThumbs();
+  // Scroll selected thumbnail into view
+  setTimeout(() => {
+    const thumbs = document.getElementById("lightbox-thumbs");
+    if (thumbs) {
+      const selected = thumbs.querySelector('.selected');
+      if (selected) {
+        selected.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+    }
+  }, 0);
   lightbox.classList.remove("hidden");
   updateLightboxControls();
+  // Always re-attach close button event
+  const closeBtn = document.querySelector(".close-btn");
+  if (closeBtn) closeBtn.onclick = closeLightbox;
+}
+
+function renderLightboxThumbs() {
+  const thumbs = document.getElementById("lightbox-thumbs");
+  if (!thumbs) return;
+  thumbs.innerHTML = "";
+  currentPhotos.forEach((photo, idx) => {
+    const img = document.createElement("img");
+    img.src = photo.src;
+    img.className = "lightbox-thumb" + (idx === currentPhotoIdx ? " selected" : "");
+    img.onclick = () => {
+      if (idx !== currentPhotoIdx) {
+        animateLightboxContent(() => openLightbox(idx));
+      }
+    };
+    thumbs.appendChild(img);
+  });
+  // Scroll selected into view
+  const selected = thumbs.querySelector('.selected');
+  if (selected) {
+    selected.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
 }
 
 function updateLightboxControls() {
