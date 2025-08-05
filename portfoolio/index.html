@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Photographer Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-blur"></div>
+  <header>
+    <h1>Jane Doe Photography</h1>
+  </header>
+  <main>
+    <section id="albums-section">
+      <h2>Photo Albums</h2>
+      <div id="albums-grid"></div>
+    </section>
+    <section id="photographer-section">
+      <div class="photographer-container">
+        <div class="equipment">
+          <h3>Equipment</h3>
+          <ul id="equipment-list"></ul>
+        </div>
+        <div class="portrait">
+          <img src="assets/photographer.jpg" alt="Photographer Portrait">
+        </div>
+        <div class="bio">
+          <h3>About Jane Doe</h3>
+          <p id="bio-text"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="lightbox" class="hidden">
+    <div class="lightbox-content">
+      <button class="close-btn">&times;</button>
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-caption">
+        <h4 id="photo-title"></h4>
+        <p id="photo-desc"></p>
+        <div id="exif-data"></div>
+      </div>
+      <div class="lightbox-controls">
+        <button id="prev-btn">&#8592; Prev</button>
+        <button id="next-btn">Next &#8594;</button>
+        <button id="back-btn">Back to Album</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
