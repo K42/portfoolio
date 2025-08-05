@@ -10,7 +10,6 @@ const albums = [
     folder: "album2",
     cover: "01.jpg"
   }
-  // Add more albums as needed
 ];
 
 const equipment = [
@@ -23,30 +22,51 @@ const equipment = [
 
 const bio = `Jane Doe is a fine art photographer whose work explores the interplay of light and shadow in urban and natural landscapes. Her moody, evocative images have been featured in international exhibitions and publications.`;
 
+// --- Cached DOM Elements ---
+let cachedElements = {};
+
+function getElement(id) {
+  if (!cachedElements[id]) {
+    cachedElements[id] = document.getElementById(id);
+  }
+  return cachedElements[id];
+}
+
+// --- Performance Optimized Event Handlers ---
+let mousemoveTimeout;
+function debouncedMousemove(e) {
+  clearTimeout(mousemoveTimeout);
+  mousemoveTimeout = setTimeout(() => {
+    const bg = getElement('dynamic-bg');
+    if (bg) {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      bg.style.transform = `scale(1.15) translate(${x * 18}px, ${y * 18}px)`;
+    }
+  }, 16); // ~60fps
+}
+
 // --- DOMContentLoaded ---
 document.addEventListener("DOMContentLoaded", () => {
   renderAlbums();
   renderPhotographer();
   setRandomBackground();
   animateBackgroundPan();
-  // Parallax effect for background
-  const bg = document.getElementById('dynamic-bg');
+
+  // Optimized event listeners
+  const bg = getElement('dynamic-bg');
   if (bg) {
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2; // -1 to 1
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      bg.style.transform = `scale(1.15) translate(${x * 18}px, ${y * 18}px)`;
-    });
+    document.addEventListener('mousemove', debouncedMousemove, { passive: true });
     document.addEventListener('mouseleave', () => {
       bg.style.transform = 'scale(1.15) translate(0,0)';
     });
   }
 
-  // Keyboard controls for lightbox
+  // Keyboard controls
   document.addEventListener("keydown", handleLightboxKey);
 
-  // Attach click-outside-to-close for lightbox
-  const lightbox = document.getElementById("lightbox");
+  // Click outside to close
+  const lightbox = getElement("lightbox");
   if (lightbox) {
     lightbox.onclick = function(e) {
       if (e.target === lightbox) {
@@ -56,54 +76,70 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// --- Render Albums Grid ---
+// --- Optimized Album Rendering ---
 function renderAlbums() {
-  const grid = document.getElementById("albums-grid");
-  grid.innerHTML = "";
+  const grid = getElement("albums-grid");
+  if (!grid) return;
+  
+  const fragment = document.createDocumentFragment();
   albums.forEach((album, idx) => {
     const div = document.createElement("div");
     div.className = "album-thumb";
     div.innerHTML = `
-      <img src="assets/albums/${album.folder}/${album.cover}" alt="${album.title}">
+      <img src="assets/albums/${album.folder}/${album.cover}" alt="${album.title}" loading="lazy">
       <div class="album-title">${album.title}</div>
     `;
     div.addEventListener("click", () => openAlbum(idx));
-    grid.appendChild(div);
+    fragment.appendChild(div);
   });
+  grid.innerHTML = "";
+  grid.appendChild(fragment);
 }
 
-// --- Render Photographer Section ---
 function renderPhotographer() {
-  // Equipment
-  const eqList = document.getElementById("equipment-list");
-  eqList.innerHTML = "";
+  const eqList = getElement("equipment-list");
+  if (!eqList) return;
+  
+  const fragment = document.createDocumentFragment();
   equipment.forEach(item => {
     const li = document.createElement("li");
     li.textContent = item;
-    eqList.appendChild(li);
+    fragment.appendChild(li);
   });
-  // Bio
-  document.getElementById("bio-text").textContent = bio;
+  eqList.innerHTML = "";
+  eqList.appendChild(fragment);
+  
+  const bioText = getElement("bio-text");
+  if (bioText) bioText.textContent = bio;
 }
 
 // --- Album Lightbox Logic ---
 let currentAlbumIdx = null;
 let currentPhotoIdx = null;
 let currentPhotos = [];
+let preloadedImages = new Set();
 
 function openAlbum(albumIdx) {
   currentAlbumIdx = albumIdx;
   const album = albums[albumIdx];
-  // Dynamically load all jpgs in the album folder
   fetchAlbumPhotos(album.folder).then(photos => {
     currentPhotos = photos;
+    preloadImages(photos);
     openLightbox(0);
   });
 }
 
-// Update fetchAlbumPhotos to support new EXIF fields from manifest
+function preloadImages(photos) {
+  photos.forEach(photo => {
+    if (!preloadedImages.has(photo.src)) {
+      const img = new Image();
+      img.src = photo.src;
+      preloadedImages.add(photo.src);
+    }
+  });
+}
+
 function fetchAlbumPhotos(folder) {
-  // Load manifest.json for the album
   return fetch(`assets/albums/${folder}/manifest.json`)
     .then(r => r.json())
     .then(list =>
@@ -121,12 +157,14 @@ function fetchAlbumPhotos(folder) {
     );
 }
 
-// Update openLightbox to fill exif-info fields
 function openLightbox(photoIdx) {
   currentPhotoIdx = photoIdx;
   const photo = currentPhotos[photoIdx];
-  const img = document.getElementById("lightbox-img");
-  const wrapper = document.getElementById("lightbox-img-wrapper");
+  const img = getElement("lightbox-img");
+  const wrapper = getElement("lightbox-img-wrapper");
+  const lightbox = getElement("lightbox");
+
+  if (!img || !wrapper || !lightbox) return;
 
   // Measure current size
   const prevWidth = wrapper.offsetWidth;
@@ -138,7 +176,7 @@ function openLightbox(photoIdx) {
     let newHeight = img.naturalHeight;
     const maxW = window.innerWidth * 0.5;
     const maxH = window.innerHeight * 0.6;
-    // Scale down if needed
+    
     const widthRatio = newWidth / maxW;
     const heightRatio = newHeight / maxH;
     if (widthRatio > 1 || heightRatio > 1) {
@@ -146,58 +184,50 @@ function openLightbox(photoIdx) {
       newWidth = newWidth / scale;
       newHeight = newHeight / scale;
     }
-    // Set wrapper to previous size
+    
+    // Animate size change
     wrapper.style.width = prevWidth + "px";
     wrapper.style.height = prevHeight + "px";
-    // Force reflow
-    void wrapper.offsetWidth;
-    // Animate to new size
+    void wrapper.offsetWidth; // Force reflow
     wrapper.style.width = newWidth + "px";
     wrapper.style.height = newHeight + "px";
   };
 
-  // Set new image src (triggers onload)
   img.src = photo.src;
 
-  // Fill exif-info fields
-  document.getElementById("exif-camera").textContent = photo.camera || '';
-  document.getElementById("exif-lens").textContent = photo.lens || '';
-  document.getElementById("exif-focal").textContent = photo.focal || '';
-  document.getElementById("exif-aperture").textContent = photo.aperture || '';
-  document.getElementById("exif-shutter").textContent = photo.shutter || '';
-  document.getElementById("exif-iso").textContent = photo.iso || '';
-  // Render thumbnails
+  // Update EXIF fields efficiently
+  const exifFields = ['camera', 'lens', 'focal', 'aperture', 'shutter', 'iso'];
+  exifFields.forEach(field => {
+    const element = getElement(`exif-${field}`);
+    if (element) element.textContent = photo[field] || '';
+  });
+
   renderLightboxThumbs();
+  
   // Scroll selected thumbnail into view
-  setTimeout(() => {
-    const thumbs = document.getElementById("lightbox-thumbs");
+  requestAnimationFrame(() => {
+    const thumbs = getElement("lightbox-thumbs");
     if (thumbs) {
       const selected = thumbs.querySelector('.selected');
       if (selected) {
         selected.scrollIntoView({ block: 'center', behavior: 'smooth' });
       }
     }
-  }, 0);
-  document.getElementById("lightbox").classList.remove("hidden");
+  });
+
+  lightbox.classList.remove("hidden");
   updateLightboxControls();
-  // Always re-attach close button event
+  
+  // Re-attach close button
   const closeBtn = document.querySelector(".close-btn");
   if (closeBtn) closeBtn.onclick = closeLightbox;
-  // Attach click-outside-to-close every time popup is shown
-  const lightbox = document.getElementById("lightbox");
-  if (lightbox) {
-    lightbox.onclick = function(e) {
-      if (e.target === lightbox) {
-        closeLightbox();
-      }
-    };
-  }
 }
 
 function renderLightboxThumbs() {
-  const thumbs = document.getElementById("lightbox-thumbs");
+  const thumbs = getElement("lightbox-thumbs");
   if (!thumbs) return;
-  thumbs.innerHTML = "";
+  
+  const fragment = document.createDocumentFragment();
   currentPhotos.forEach((photo, idx) => {
     const img = document.createElement("img");
     img.src = photo.src;
@@ -207,8 +237,12 @@ function renderLightboxThumbs() {
         animatePhotoFade(() => openLightbox(idx));
       }
     };
-    thumbs.appendChild(img);
+    fragment.appendChild(img);
   });
+  
+  thumbs.innerHTML = "";
+  thumbs.appendChild(fragment);
+  
   // Scroll selected into view
   const selected = thumbs.querySelector('.selected');
   if (selected) {
@@ -217,43 +251,46 @@ function renderLightboxThumbs() {
 }
 
 function updateLightboxControls() {
-  document.getElementById("prev-btn").disabled = currentPhotoIdx === 0;
-  document.getElementById("next-btn").disabled = currentPhotoIdx === currentPhotos.length - 1;
+  const prevBtn = getElement("prev-btn");
+  const nextBtn = getElement("next-btn");
+  
+  if (prevBtn) prevBtn.disabled = currentPhotoIdx === 0;
+  if (nextBtn) nextBtn.disabled = currentPhotoIdx === currentPhotos.length - 1;
 }
 
 function animatePhotoFade(callback) {
-  const img = document.getElementById('lightbox-img');
+  const img = getElement('lightbox-img');
   if (!img) return callback();
+  
   img.classList.add('fading');
   setTimeout(() => {
     callback();
     img.classList.remove('fading');
-  }, 500); // match CSS transition duration
+  }, 500);
 }
 
-// Update prev/next handlers to animate
-
-document.getElementById("prev-btn").onclick = () => {
+// Event handlers
+getElement("prev-btn").onclick = () => {
   if (currentPhotoIdx > 0) {
     animatePhotoFade(() => openLightbox(currentPhotoIdx - 1));
   }
 };
-document.getElementById("next-btn").onclick = () => {
+
+getElement("next-btn").onclick = () => {
   if (currentPhotoIdx < currentPhotos.length - 1) {
     animatePhotoFade(() => openLightbox(currentPhotoIdx + 1));
   }
 };
-document.getElementById("back-btn").onclick = closeLightbox;
-document.querySelector(".close-btn").onclick = closeLightbox;
 
 function closeLightbox() {
-  document.getElementById("lightbox").classList.add("hidden");
+  const lightbox = getElement("lightbox");
+  if (lightbox) lightbox.classList.add("hidden");
 }
 
-// Keyboard controls for lightbox (only when visible)
 function handleLightboxKey(e) {
-  const lightbox = document.getElementById("lightbox");
+  const lightbox = getElement("lightbox");
   if (!lightbox || lightbox.classList.contains("hidden")) return;
+  
   if (e.key === "ArrowLeft") {
     if (currentPhotoIdx > 0) animatePhotoFade(() => openLightbox(currentPhotoIdx - 1));
   } else if (e.key === "ArrowRight") {
@@ -263,63 +300,46 @@ function handleLightboxKey(e) {
   }
 }
 
-// --- EXIF Extraction (Browser limitations) ---
-function extractEXIF(imgUrl) {
-  // Browsers can't natively extract EXIF without a library.
-  // For demo, we'll just return null.
-  // If you want, you can implement a minimal EXIF parser in JS, but it's complex.
-  return Promise.resolve(null);
-}
-
-function formatEXIF(exif) {
-  // exif: {key: value, ...}
-  return Object.entries(exif).map(([k, v]) => `<div><b>${k}:</b> ${v}</div>`).join("");
-}
-
-// --- Dynamic Background ---
+// --- Optimized Background Functions ---
 function setRandomBackground() {
-  // Gather all photo srcs from all albums
   const albumManifests = [
     'assets/albums/album1/manifest.json',
     'assets/albums/album2/manifest.json'
-    // Add more album manifest paths if needed
   ];
-  let allPhotos = [];
-  let loaded = 0;
-  albumManifests.forEach((manifest, idx) => {
-    fetch(manifest)
-      .then(r => r.json())
-      .then(list => {
-        allPhotos = allPhotos.concat(list.map(photo => `assets/albums/${manifest.split('/')[2]}/${photo.file}`));
-        loaded++;
-        if (loaded === albumManifests.length && allPhotos.length > 0) {
-          const randomSrc = allPhotos[Math.floor(Math.random() * allPhotos.length)];
-          const bg = document.getElementById('dynamic-bg');
-          if (bg) {
-            bg.style.backgroundImage = `url('${randomSrc}')`;
-          }
-        }
-      });
+  
+  Promise.all(albumManifests.map(manifest => 
+    fetch(manifest).then(r => r.json())
+  )).then(results => {
+    const allPhotos = results.flatMap((list, idx) => 
+      list.map(photo => `assets/albums/${albumManifests[idx].split('/')[2]}/${photo.file}`)
+    );
+    
+    if (allPhotos.length > 0) {
+      const randomSrc = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+      const bg = getElement('dynamic-bg');
+      if (bg) {
+        bg.style.backgroundImage = `url('${randomSrc}')`;
+      }
+    }
   });
 }
 
 function animateBackgroundPan() {
-  const bg = document.getElementById('dynamic-bg');
+  const bg = getElement('dynamic-bg');
   if (!bg) return;
-  // Start at left
+  
   bg.style.transform = 'scale(1.15) translateX(0)';
-  // Animate to right over 60s (adjust as needed)
   setTimeout(() => {
     bg.style.transition = 'transform 60s linear';
     bg.style.transform = 'scale(1.15) translateX(-12vw)';
-  }, 300); // slight delay for initial load
+  }, 300);
 }
 
 // --- Page Transition Animation ---
 document.addEventListener("DOMContentLoaded", () => {
   document.body.style.opacity = 0;
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     document.body.style.transition = "opacity 0.7s";
     document.body.style.opacity = 1;
-  }, 100);
+  });
 });

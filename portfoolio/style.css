@@ -21,6 +21,7 @@ body {
   opacity: 1;
   transition: background-image 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
   will-change: background-image, transform;
+  transform: translateZ(0);
 }
 .background-blur {
   display: none;
@@ -93,11 +94,13 @@ main {
   overflow: hidden;
   box-shadow: 0 4px 24px rgba(0,0,0,0.4);
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s cubic-bezier(0.4,0,0.2,1);
   position: relative;
+  will-change: transform;
+  transform: translateZ(0);
 }
 .album-thumb:hover {
-  transform: translateY(-6px) scale(1.03);
+  transform: translateY(-6px) scale(1.03) translateZ(0);
   box-shadow: 0 8px 32px rgba(0,0,0,0.6);
 }
 .album-thumb img {
@@ -106,7 +109,8 @@ main {
   object-fit: cover;
   display: block;
   filter: grayscale(0.2) brightness(0.8);
-  transition: filter 0.3s;
+  transition: filter 0.3s cubic-bezier(0.4,0,0.2,1);
+  will-change: filter;
 }
 .album-thumb:hover img {
   filter: grayscale(0) brightness(1);
@@ -160,12 +164,13 @@ main {
   z-index: 100;
   opacity: 1;
   pointer-events: auto;
-  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), background 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+  will-change: opacity;
 }
 #lightbox.hidden {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), background 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
 }
 .lightbox-content {
   background: rgba(35,35,38,0.2);
@@ -179,32 +184,22 @@ main {
   align-items: flex-start;
   position: relative;
   opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1), width 0.5s cubic-bezier(0.4,0,0.2,1), height 0.5s cubic-bezier(0.4,0,0.2,1), max-width 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  transform: scale(1) translateZ(0);
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1), width 0.5s cubic-bezier(0.4,0,0.2,1), height 0.5s cubic-bezier(0.4,0,0.2,1);
   backdrop-filter: blur(4px) saturate(120%);
   animation: lightboxFadeIn 0.8s cubic-bezier(0.4,0,0.2,1);
   border: 1.5px solid rgba(255,255,255,0.08);
   justify-content: flex-start;
+  will-change: transform, opacity, width, height;
 }
 #lightbox.hidden .lightbox-content {
   opacity: 0;
-  transform: scale(0.96);
+  transform: scale(0.96) translateZ(0);
   pointer-events: none;
-  animation: lightboxFadeOut 0.8s cubic-bezier(0.4,0,0.2,1);
-}
-.lightbox-content.animating {
-  animation: lightboxFadeIn 0.8s cubic-bezier(0.4,0,0.2,1);
-}
-.lightbox-content.fading {
-  animation: lightboxFadeOut 0.8s cubic-bezier(0.4,0,0.2,1);
 }
 @keyframes lightboxFadeIn {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes lightboxFadeOut {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.96); }
+  from { opacity: 0; transform: scale(0.96) translateZ(0); }
+  to { opacity: 1; transform: scale(1) translateZ(0); }
 }
 
 .lightbox-img-exif-container {
@@ -225,6 +220,7 @@ main {
   padding: 0.5rem 0.2rem;
   position: relative;
   scroll-behavior: smooth;
+  will-change: scroll-position;
 }
 .lightbox-thumb {
   width: 60px;
@@ -234,15 +230,17 @@ main {
   border: 2px solid transparent;
   cursor: pointer;
   opacity: 0.7;
-  transition: border 0.2s, opacity 0.2s, filter 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: border 0.2s cubic-bezier(0.4,0,0.2,1), opacity 0.2s cubic-bezier(0.4,0,0.2,1), filter 0.5s cubic-bezier(0.4,0,0.2,1);
   background: #222;
   filter: brightness(0.5) saturate(0.5);
+  will-change: filter, opacity;
+  transform: translateZ(0);
 }
 .lightbox-thumb:hover,
 .lightbox-thumb.selected {
   filter: brightness(1) saturate(1);
   opacity: 1;
-  transition: filter 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.2s;
+  transition: filter 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.2s cubic-bezier(0.4,0,0.2,1);
 }
 .lightbox-thumbs::before,
 .lightbox-thumbs::after {
@@ -269,6 +267,8 @@ main {
   overflow: hidden;
   min-width: 60px;
   min-height: 60px;
+  will-change: width, height;
+  transform: translateZ(0);
 }
 #lightbox-img {
   display: block;
@@ -284,13 +284,15 @@ main {
   padding: 0.5rem;
   opacity: 1;
   filter: none;
-  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), width 0.5s cubic-bezier(0.4,0,0.2,1), height 0.5s cubic-bezier(0.4,0,0.2,1), max-width 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+  will-change: opacity;
+  transform: translateZ(0);
 }
 #lightbox-img.fading {
   opacity: 0;
   transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
 }
-#exif-data {
+#exif-info {
   min-width: 180px;
   max-width: 260px;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
@@ -344,9 +346,10 @@ main {
   font-weight: 300;
   letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s cubic-bezier(0.4,0,0.2,1), color 0.2s cubic-bezier(0.4,0,0.2,1);
   box-shadow: none;
   opacity: 0.7;
+  will-change: background, color, opacity;
 }
 .lightbox-controls button:hover, .close-btn:hover {
   background: #111;
@@ -365,7 +368,7 @@ main {
   border-radius: 0;
   opacity: 0.5;
   box-shadow: none;
-  transition: color 0.2s, opacity 0.2s;
+  transition: color 0.2s cubic-bezier(0.4,0,0.2,1), opacity 0.2s cubic-bezier(0.4,0,0.2,1);
   font-weight: 300;
   z-index: 2;
 }
