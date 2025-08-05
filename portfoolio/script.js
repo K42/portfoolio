@@ -136,7 +136,7 @@ function renderLightboxThumbs() {
     img.className = "lightbox-thumb" + (idx === currentPhotoIdx ? " selected" : "");
     img.onclick = () => {
       if (idx !== currentPhotoIdx) {
-        animateLightboxContent(() => openLightbox(idx));
+        animatePhotoFade(() => openLightbox(idx));
       }
     };
     thumbs.appendChild(img);
@@ -153,29 +153,26 @@ function updateLightboxControls() {
   document.getElementById("next-btn").disabled = currentPhotoIdx === currentPhotos.length - 1;
 }
 
-function animateLightboxContent(callback) {
-  const content = document.querySelector('.lightbox-content');
-  content.classList.add('fading');
+function animatePhotoFade(callback) {
+  const img = document.getElementById('lightbox-img');
+  if (!img) return callback();
+  img.classList.add('fading');
   setTimeout(() => {
     callback();
-    content.classList.remove('fading');
-    content.classList.add('animating');
-    setTimeout(() => {
-      content.classList.remove('animating');
-    }, 800); // match CSS animation duration
-  }, 800); // match CSS animation duration
+    img.classList.remove('fading');
+  }, 500); // match CSS transition duration
 }
 
 // Update prev/next handlers to animate
 
 document.getElementById("prev-btn").onclick = () => {
   if (currentPhotoIdx > 0) {
-    animateLightboxContent(() => openLightbox(currentPhotoIdx - 1));
+    animatePhotoFade(() => openLightbox(currentPhotoIdx - 1));
   }
 };
 document.getElementById("next-btn").onclick = () => {
   if (currentPhotoIdx < currentPhotos.length - 1) {
-    animateLightboxContent(() => openLightbox(currentPhotoIdx + 1));
+    animatePhotoFade(() => openLightbox(currentPhotoIdx + 1));
   }
 };
 document.getElementById("back-btn").onclick = closeLightbox;

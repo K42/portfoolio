@@ -230,6 +230,11 @@ main {
   padding: 0.5rem;
   opacity: 1;
   filter: none;
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+#lightbox-img.fading {
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
 }
 #exif-data {
   min-width: 180px;
