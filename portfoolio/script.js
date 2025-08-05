@@ -41,6 +41,19 @@ document.addEventListener("DOMContentLoaded", () => {
       bg.style.transform = 'scale(1.15) translate(0,0)';
     });
   }
+
+  // Keyboard controls for lightbox
+  document.addEventListener("keydown", handleLightboxKey);
+
+  // Attach click-outside-to-close for lightbox
+  const lightbox = document.getElementById("lightbox");
+  if (lightbox) {
+    lightbox.onclick = function(e) {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    };
+  }
 });
 
 // --- Render Albums Grid ---
@@ -249,7 +262,6 @@ function handleLightboxKey(e) {
     closeLightbox();
   }
 }
-document.addEventListener("keydown", handleLightboxKey);
 
 // --- EXIF Extraction (Browser limitations) ---
 function extractEXIF(imgUrl) {
