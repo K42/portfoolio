@@ -77,8 +77,8 @@ function renderAlbums() {
       const div = document.createElement("div");
       div.className = "album-thumb";
       div.innerHTML = `
-        <img src="assets/albums/${album.folder}/${album.cover}" alt="${album.title}" loading="lazy">
-        <div class="album-title">${album.title}</div>
+        <img src="assets/albums/${album.path}/${album.cover}" alt="${album.name}" loading="lazy">
+        <div class="album-title">${album.name}</div>
       `;
       div.addEventListener("click", () => openAlbum(idx));
       fragment.appendChild(div);
@@ -114,12 +114,16 @@ let currentPhotos = [];
 let preloadedImages = new Set();
 
 function openAlbum(albumIdx) {
-  currentAlbumIdx = albumIdx;
-  const album = albums[albumIdx];
-  fetchAlbumPhotos(album.folder).then(photos => {
-    currentPhotos = photos;
-    preloadImages(photos);
-    openLightbox(0);
+  var data = fetch('./assets/albums/manifest.json')
+  .then(response => response.json())
+  .then(albums => {
+    currentAlbumIdx = albumIdx;
+    const album = albums[albumIdx];
+    fetchAlbumPhotos(album.path).then(photos => {
+      currentPhotos = photos;
+      preloadImages(photos);
+      openLightbox(0);
+    });
   });
 }
 

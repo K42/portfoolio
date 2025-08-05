@@ -2,31 +2,37 @@
   {
     "path": "brenna2024",
     "name": "Brenna 2024",
-    "description": "Nightlife and candid moments in the city."
+    "description": "Nightlife and candid moments in the city.",
+    "cover": "cover.jpg"
   },
   {
     "path": "brenna2025",
     "name": "Brenna 2025",
-    "description": "Moody, atmospheric shots from the woods."
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.jpg"
   },
   {
     "path": "grzyby",
     "name": "Grzyby",
-    "description": "Moody, atmospheric shots from the woods."
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.png"
   },
   {
     "path": "sojki2025",
     "name": "Sójki 2025",
-    "description": "Moody, atmospheric shots from the woods."
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.jpg"
   },
   {
     "path": "natura",
     "name": "Natura",
-    "description": "Moody, atmospheric shots from the woods."
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.jpg"
   },
   {
     "path": "landscape",
     "name": "Krajobraz",
-    "description": "Moody, atmospheric shots from the woods."
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.jpg"
   }
 ]
