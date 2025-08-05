@@ -19,7 +19,7 @@ body {
   background-size: cover;
   filter: blur(3px) brightness(0.1);
   opacity: 1;
-  transition: background-image 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  transition: background-image 1.5s cubic-bezier(0.4,0,0.2,1), transform 1s cubic-bezier(0.4,0,0.2,1);
   will-change: background-image, transform;
   transform: translateZ(0);
 }
@@ -63,12 +63,13 @@ header {
   height: 95%;
   opacity: 1;
   object-fit: cover;
+  filter: brightness(1.5);
   border-radius: 50%; /* Ensures the image is displayed in a circle */
 }
 header h1 {
   margin: 0;
   color: #e0e0e0;
-  opacity: 0.25;
+  opacity: 0.45;
   font-size: 2.5rem;
   font-weight: 200;
   letter-spacing: 0.3em;
@@ -109,7 +110,7 @@ main {
   height: 180px;
   object-fit: cover;
   display: block;
-  filter: grayscale(0.2) brightness(0.8);
+  filter: grayscale(0.2) brightness(0.5);
   transition: filter 0.3s cubic-bezier(0.4,0,0.2,1);
   will-change: filter;
 }
@@ -297,20 +298,21 @@ main {
 }
 #exif-info {
   min-width: 180px;
-  max-width: 260px;
+  max-width: 290px;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  font-size: 1.05rem;
+  font-size: 0.8rem;
   color: #b8b8b8;
   margin-top: 0.5rem;
-  margin-left: 0.5rem;
-  word-break: break-word;
+  margin-left: 0.3rem;
+  word-break: keep-all
   line-height: 1.6;
   background: rgba(0,0,0,0.10);
   border-radius: 8px;
   padding: 0.7rem 1rem;
   box-shadow: 0 1px 6px rgba(0,0,0,0.10);
-  font-weight: 300;
+  font-weight: 100;
   letter-spacing: 0.01em;
+  opacity: 0.6;
 }
 .exif-row {
   display: flex;

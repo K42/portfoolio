@@ -5,6 +5,7 @@ const equipment = [
   "Nikkor Z 28-75 f/2.8",
   "Nikkor Z 280-600 f/4.5-5.6",
   "Sigma Art 50mm f/1.4",
+  "SIGMA C 150-600mm f/5-6.3",
   "Helios 44-2 58mm f/2",
   "Ulanzi & COMAN ZERO Y",
   "Sirui PH-10"
@@ -76,6 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  setRandomBackground(); // Set the initial background
+  setInterval(setRandomBackground, 15000); // Change background every 15 seconds
 });
 
 // --- Optimized Album Rendering ---
@@ -346,6 +350,7 @@ function animateBackgroundPan() {
   const bg = getElement('dynamic-bg');
   if (!bg) return;
   
+  resetTransition(bg);
   bg.style.transform = 'scale(1.15) translateX(0)';
   setTimeout(() => {
     bg.style.transition = 'transform 60s linear';
@@ -361,3 +366,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.opacity = 1;
   });
 });
+
+// --- Utility Functions ---
+function resetTransition(element) {
+  // Temporarily remove the transition class
+  element.style.transition = 'none';
+
+  // Force a reflow to reset the transition
+  void element.offsetWidth;
+
+  // Reapply the transition
+  element.style.transition = '';
+}
