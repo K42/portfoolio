@@ -37,15 +37,20 @@
       <button class="close-btn">&times;</button>
       <div class="lightbox-img-exif-container">
         <img id="lightbox-img" src="" alt="">
-        <div id="exif-data"></div>
+        <div id="exif-info">
+          <div class="exif-row"><span class="exif-label">Camera:</span> <span id="exif-camera"></span></div>
+          <div class="exif-row"><span class="exif-label">Lens:</span> <span id="exif-lens"></span></div>
+          <div class="exif-row"><span class="exif-label">Focal length:</span> <span id="exif-focal"></span></div>
+          <div class="exif-row"><span class="exif-label">Aperture:</span> <span id="exif-aperture"></span></div>
+          <div class="exif-row"><span class="exif-label">Shutter:</span> <span id="exif-shutter"></span></div>
+          <div class="exif-row"><span class="exif-label">ISO:</span> <span id="exif-iso"></span></div>
+        </div>
       </div>
       <div class="lightbox-caption">
-        <h4 id="photo-title"></h4>
         <p id="photo-desc"></p>
       </div>
       <div class="lightbox-controls">
         <button id="prev-btn">&#8592; Prev</button>
-        <button id="back-btn">Back to Album</button>
         <button id="next-btn">Next &#8594;</button>
       </div>
     </div>

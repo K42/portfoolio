@@ -74,6 +74,7 @@ function openAlbum(albumIdx) {
   });
 }
 
+// Update fetchAlbumPhotos to support new EXIF fields from manifest
 function fetchAlbumPhotos(folder) {
   // Load manifest.json for the album
   return fetch(`assets/albums/${folder}/manifest.json`)
@@ -82,27 +83,33 @@ function fetchAlbumPhotos(folder) {
       list.map(photo => ({
         src: `assets/albums/${folder}/${photo.file}`,
         desc: `assets/albums/${folder}/${photo.file.replace(/\.jpg$/i, '.txt')}`,
-        title: photo.title || photo.file.replace(/\.jpg$/i, '')
+        title: photo.title || photo.file.replace(/\.jpg$/i, ''),
+        camera: photo.camera || '',
+        lens: photo.lens || '',
+        focal: photo.focal || '',
+        aperture: photo.aperture || '',
+        shutter: photo.shutter || '',
+        iso: photo.iso || ''
       }))
     );
 }
 
+// Update openLightbox to fill exif-info fields
 function openLightbox(photoIdx) {
   currentPhotoIdx = photoIdx;
   const photo = currentPhotos[photoIdx];
   const lightbox = document.getElementById("lightbox");
   document.getElementById("lightbox-img").src = photo.src;
-  document.getElementById("photo-title").textContent = photo.title;
-  // Load description and EXIF
-  fetch(photo.desc)
-    .then(r => r.text())
-    .then(text => {
-      document.getElementById("photo-desc").textContent = text.split("\n")[0] || "";
-      // Try to extract EXIF from the JPG (limited in browser)
-      extractEXIF(photo.src).then(exif => {
-        document.getElementById("exif-data").innerHTML = exif ? formatEXIF(exif) : "<em>No EXIF data found.</em>";
-      });
-    });
+  // No filename or title in caption
+  // Load description
+ // fetch(photo.desc)
+  // Fill exif-info fields
+  document.getElementById("exif-camera").textContent = photo.camera || '';
+  document.getElementById("exif-lens").textContent = photo.lens || '';
+  document.getElementById("exif-focal").textContent = photo.focal || '';
+  document.getElementById("exif-aperture").textContent = photo.aperture || '';
+  document.getElementById("exif-shutter").textContent = photo.shutter || '';
+  document.getElementById("exif-iso").textContent = photo.iso || '';
   lightbox.classList.remove("hidden");
   updateLightboxControls();
 }
