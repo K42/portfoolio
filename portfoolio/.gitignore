@@ -1,1 +1,6 @@
 # Ignore JPG files in albums folders
+assets/albums/*/*.jpg
+assets/albums/*/*.jpeg
+assets/albums/*/*.JPG
+assets/albums/*/*.JPEG
+assets/albums/*/*.png
