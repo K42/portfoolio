@@ -1,12 +1,32 @@
 [
   {
-    "path": "album1",
-    "name": "Urban Shadows",
+    "path": "brenna2024",
+    "name": "Brenna 2024",
     "description": "Nightlife and candid moments in the city."
   },
   {
-    "path": "album2",
-    "name": "Silent Forest",
+    "path": "brenna2025",
+    "name": "Brenna 2025",
+    "description": "Moody, atmospheric shots from the woods."
+  },
+  {
+    "path": "grzyby",
+    "name": "Grzyby",
+    "description": "Moody, atmospheric shots from the woods."
+  },
+  {
+    "path": "sojki2025",
+    "name": "Sójki 2025",
+    "description": "Moody, atmospheric shots from the woods."
+  },
+  {
+    "path": "natura",
+    "name": "Natura",
+    "description": "Moody, atmospheric shots from the woods."
+  },
+  {
+    "path": "landscape",
+    "name": "Krajobraz",
     "description": "Moody, atmospheric shots from the woods."
   }
 ]
