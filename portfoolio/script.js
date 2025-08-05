@@ -5,7 +5,6 @@ const equipment = [
   "Nikkor Z 28-75 f/2.8",
   "Nikkor Z 280-600 f/4.5-5.6",
   "Sigma Art 50mm f/1.4",
-  "SIGMA C 150-600mm f/5-6.3",
   "Helios 44-2 58mm f/2",
   "Ulanzi & COMAN ZERO Y",
   "Sirui PH-10"
@@ -23,19 +22,6 @@ function getElement(id) {
   return cachedElements[id];
 }
 
-// --- Performance Optimized Event Handlers ---
-let mousemoveTimeout;
-function debouncedMousemove(e) {
-  clearTimeout(mousemoveTimeout);
-  mousemoveTimeout = setTimeout(() => {
-    const bg = getElement('dynamic-bg');
-    if (bg) {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      bg.style.transform = `scale(1.15) translate(${x * 18}px, ${y * 18}px)`;
-    }
-  }, 16); // ~60fps
-}
 
 // --- DOMContentLoaded ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -44,14 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setRandomBackground();
   animateBackgroundPan();
 
-  // Optimized event listeners
-  const bg = getElement('dynamic-bg');
-  if (bg) {
-    document.addEventListener('mousemove', debouncedMousemove, { passive: true });
-    document.addEventListener('mouseleave', () => {
-      bg.style.transform = 'scale(1.15) translate(0,0)';
-    });
-  }
 
   // Keyboard controls
   document.addEventListener("keydown", handleLightboxKey);
@@ -114,7 +92,7 @@ function renderPhotographer() {
   
   const fragment = document.createDocumentFragment();
   equipment.forEach(item => {
-    const li = document.createElement("li");
+    const li = document.createElement("p");
     li.textContent = item;
     fragment.appendChild(li);
   });

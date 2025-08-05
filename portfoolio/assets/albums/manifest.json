@@ -1,21 +1,9 @@
 [
   {
-    "path": "brenna2024",
-    "name": "Brenna 2024",
-    "description": "Nightlife and candid moments in the city.",
-    "cover": "cover.jpg"
-  },
-  {
     "path": "brenna2025",
     "name": "Brenna 2025",
     "description": "Moody, atmospheric shots from the woods.",
     "cover": "cover.jpg"
-  },
-  {
-    "path": "grzyby",
-    "name": "Fungi",
-    "description": "Moody, atmospheric shots from the woods.",
-    "cover": "cover.png"
   },
   {
     "path": "sojki2025",
@@ -24,10 +12,16 @@
     "cover": "cover.jpg"
   },
   {
-    "path": "natura",
-    "name": "Nature",
-    "description": "Moody, atmospheric shots from the woods.",
+    "path": "brenna2024",
+    "name": "Brenna 2024",
+    "description": "Nightlife and candid moments in the city.",
     "cover": "cover.jpg"
+  },
+  {
+    "path": "grzyby",
+    "name": "Fungi",
+    "description": "Moody, atmospheric shots from the woods.",
+    "cover": "cover.png"
   },
   {
     "path": "landscape",
