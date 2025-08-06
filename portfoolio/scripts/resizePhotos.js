@@ -3,19 +3,12 @@ const path = require('path');
 const sharp = require('sharp');
 
 const albumsList = [
-  "brenna2025",
-  "grzyby",
-  "brenna2024",
-  "landscape",
-  "sojki2025",
-  "natura",
-  "ptaki",
-  "zwierza"
+"album1"
 ]
 
 const MAX_SIZE = 3000; // Maximum size for the larger side
 const OUTPUT_QUALITY = 95; // JPEG quality (0-100)
-const aggressive = true; // Set to true to overwrite original files
+const aggressive = false; // Set to true to overwrite original files
 
 console.log("Starting photo resizing process...");
 
