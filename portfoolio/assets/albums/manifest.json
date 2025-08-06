@@ -2,43 +2,49 @@
   {
     "path": "brenna2025",
     "name": "Brenna 2025",
-    "description": "Moody, atmospheric shots from the woods.",
+    "description": "Słowiańska Noc Folk-Metalowa - po raz kolejny, inne szkło, inne podejście. Wspaniałe koncerty, wspaniali ludzie, wspaniałe miejsce.",
     "cover": "cover.jpg"
   },
   {
     "path": "sojki2025",
     "name": "Sójki 2025",
-    "description": "Moody, atmospheric shots from the woods.",
+    "description": "Fotografia grupy młodych śpiewaczek podczas Dni Dawnych Kultur w Brennej, dwa cudowne koncerty w wyjątkowych okolicznościach.",
     "cover": "cover.jpg"
   },
   {
     "path": "brenna2024",
     "name": "Brenna 2024",
-    "description": "Nightlife and candid moments in the city.",
+    "description": "Słowiańska Noc Folk-Metalowa - wyjątkowy festiwal w Brennej. Moje pierwsze próby fotografii koncertowej.",
     "cover": "cover.jpg"
   },
   {
     "path": "grzyby",
     "name": "Fungi",
-    "description": "Moody, atmospheric shots from the woods.",
+    "description": "Na grzybach znam się średnio ale są bardzo fotogeniczne. W tej galerii znajdziesz grzyby, które udało mi się spotkać w lesie.",
     "cover": "cover.png"
   },
   {
     "path": "landscape",
     "name": "Landscape",
-    "description": "Moody, atmospheric shots from the woods.",
+    "description": "Krajobrazy, widoki, góry, przestrzenie - ale też leśne ścieżki i dukty, łąki i pola. Fotografia krajobrazowa w różnych odsłonach.",
+    "cover": "cover.jpg"
+  },
+  {
+    "path": "natura",
+    "name": "Nature",
+    "description": "Natura w różnych, małych i dużych formach. Rośliny, drzewa, kwiaty, skały i wodospady, zjawiska atmosferyczne.",
     "cover": "cover.jpg"
   },
   {
     "path": "ptaki",
     "name": "Birding",
-    "description": "Moody, atmospheric shots from the woods.",
+    "description": "Birdwatching w kadej formie, obserwacje i dokumentacja ptaków we wszystkich biotopach i etapach życia.",
     "cover": "cover.jpg"
   },
   {
     "path": "zwierza",
     "name": "Animals",
-    "description": "Moody, atmospheric shots from the woods.",
+    "description": "Obcowanie z różnymi zwierzętami od owadów przez płazy po duże ssaki. Fotografia zwierząt w ich naturalnym środowisku ale też odwiedziny lokalnych ZOO.",
     "cover": "cover.jpg"
   }
 ]

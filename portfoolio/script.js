@@ -157,6 +157,7 @@ function openLightbox(photoIdx) {
   const img = getElement("lightbox-img");
   const wrapper = getElement("lightbox-img-wrapper");
   const lightbox = getElement("lightbox");
+  document.getElementById("photo-desc").textContent = photo.title;
 
   if (!img || !wrapper || !lightbox) return;
 
@@ -188,6 +189,7 @@ function openLightbox(photoIdx) {
   };
 
   img.src = photo.src;
+  
 
   // Update EXIF fields efficiently
   const exifFields = ['camera', 'lens', 'focal', 'aperture', 'shutter', 'iso'];
@@ -356,3 +358,36 @@ function resetTransition(element) {
   // Reapply the transition
   element.style.transition = '';
 }
+
+// --- News Section Rendering ---
+function renderNewsSection() {
+  const newsContainer = document.getElementById("news-container");
+  if (!newsContainer) return;
+
+  const manifestPath = `assets/albums/manifest.json`;
+
+  fetch(manifestPath)
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(item => {
+        const newsItem = document.createElement("div");
+        newsItem.className = "news-item";
+
+        newsItem.innerHTML = `
+          <img src="assets/albums/${item.path}/${item.cover}" alt="${item.name}">
+          <div class="news-content">
+            <h3>${item.name}</h3>
+            <p>${item.description || "No description available."}</p>
+          </div>
+        `;
+
+        newsContainer.appendChild(newsItem);
+      });
+    })
+    .catch(err => console.error(`Error loading manifest for album ${item}:`, err));
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderNewsSection();
+});
