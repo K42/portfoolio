@@ -2,7 +2,7 @@
 
 const equipment = [
   "Nikon Z6 II",
-  "Nikkor Z 28-75 f/2.8 /// Nikkor Z 180-600 f/4.5-5.6",
+  "Nikkor Z 28-75 f/2.8 + Nikkor Z 180-600 f/4.5-5.6",
   "Sigma Art 50mm f/1.4 @ FTZ II",
   "Helios 44-2 58mm f/2",
   "Peak Design Capture Clip V3, Slide Lite V2, Cuff",
