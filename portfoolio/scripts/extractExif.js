@@ -31,7 +31,6 @@ albumsList.forEach(async (album) => {
     let manifest;
     try {
       manifest = JSON.parse(data);
-      console.log(`Parsed manifest for album: ${album}`);
     } catch (parseErr) {
       return console.error(`Error parsing manifest for album ${album}:`, parseErr);
     }
@@ -46,13 +45,13 @@ albumsList.forEach(async (album) => {
         const exifData = await exiftool.read(filePath);
         console.log(`Extracted EXIF data for file: ${entry.file}`);
 
-        // Update manifest entry with EXIF data
-        entry.camera = 'Nikon Z6 II';
-        entry.lens = exifData.LensModel || '';
-        entry.focal = exifData.FocalLength || '';
-        entry.aperture = exifData.FNumber || '';
-        entry.shutter = exifData.ExposureTime || '';
-        entry.iso = exifData.ISO || '';
+        // Update only blank fields in the manifest entry
+        entry.camera = entry.camera || exifData.Make || '';
+        entry.lens = entry.lens || exifData.LensModel || '';
+        entry.focal = entry.focal || exifData.FocalLength || '';
+        entry.aperture = entry.aperture || exifData.FNumber || '';
+        entry.shutter = entry.shutter || exifData.ExposureTime || '';
+        entry.iso = entry.iso || exifData.ISO || '';
         console.log(`Updated manifest entry for file: ${entry.file}`);
       } catch (exifErr) {
         console.error(`Error extracting EXIF data for file ${entry.file}:`, exifErr);
