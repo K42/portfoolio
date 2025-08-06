@@ -2,15 +2,14 @@
 
 const equipment = [
   "Nikon Z6 II",
-  "Nikkor Z 28-75 f/2.8",
-  "Nikkor Z 180-600 f/4.5-5.6",
-  "Sigma Art 50mm f/1.4",
+  "Nikkor Z 28-75 f/2.8 /// Nikkor Z 180-600 f/4.5-5.6",
+  "Sigma Art 50mm f/1.4 @ FTZ II",
   "Helios 44-2 58mm f/2",
-  "Ulanzi & COMAN ZERO Y",
-  "Sirui PH-10"
+  "Peak Design Capture Clip V3, Slide Lite V2, Cuff",
+  "Ulanzi & COMAN ZERO Y + Sirui PH-10"
 ];
 
-const bio = `Kamil. Leśny Nerd. Black Kestrel Photography`;
+const bio = `Od paru lat szlifuję swoje umiejętności w fotografii przyrodniczej, aktualnie głównie ptaków. Zdarzają się również zabawy z fotograią produktową i lifestyle, nieśmiało wchodzę w fotografię uliczną i koncertową. Mimo wszystko moim głównym zaintreresowaniem jest natura, las i aktywności z tym związane.`;
 
 // --- Cached DOM Elements ---
 let cachedElements = {};

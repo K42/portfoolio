@@ -1,49 +1,49 @@
 [
   {
     "path": "brenna2025",
-    "name": "Brenna 2025",
+    "name": "brenna 2025",
     "description": "Słowiańska Noc Folk-Metalowa - po raz kolejny, inne szkło, inne podejście. Tym razem obfotografowany tylko jeden koncert - Czarny Bez - do tego pokaz Bielskiej Druyny Najemnej Svantevit. Wspaniałe koncerty, wspaniali ludzie, wspaniałe miejsce.",
     "cover": "cover.jpg"
   },
   {
     "path": "sojki2025",
-    "name": "Sójki 2025",
+    "name": "sójki 2025",
     "description": "Fotografia grupy młodych śpiewaczek podczas Dni Dawnych Kultur w Brennej, dwa cudowne koncerty w wyjątkowych okolicznościach. Pierwszy koncert w parku w centrum Brennej, drugi w wyjątkowym miejscu - w lesie, na zboczu góry przy Dworku Myśliwskim 'Konczakówka'",
     "cover": "cover.jpg"
   },
   {
     "path": "brenna2024",
-    "name": "Brenna 2024",
+    "name": "brenna 2024",
     "description": "Słowiańska Noc Folk-Metalowa - wyjątkowy festiwal w Brennej. Moje pierwsze próby fotografii koncertowej. Z wpiętym jednym obketywem 50mm f1.4.",
     "cover": "cover.jpg"
   },
   {
     "path": "grzyby",
-    "name": "Fungi",
+    "name": "fungi",
     "description": "Na grzybach znam się średnio ale są bardzo fotogeniczne. W tej galerii znajdziesz grzyby, które udało mi się spotkać w lesie w rónych rejonach i o rónych porach roku.",
     "cover": "cover.png"
   },
   {
     "path": "landscape",
-    "name": "Landscape",
+    "name": "landscape",
     "description": "Krajobrazy, widoki, góry, przestrzenie - ale też leśne ścieżki i dukty, łąki i pola. Fotografia krajobrazowa w różnych odsłonach.",
     "cover": "cover.jpg"
   },
   {
     "path": "natura",
-    "name": "Nature",
+    "name": "nature",
     "description": "Natura w różnych, małych i dużych formach. Rośliny, drzewa, kwiaty, skały i wodospady, zjawiska atmosferyczne.",
     "cover": "cover.jpg"
   },
   {
     "path": "ptaki",
-    "name": "Birding",
+    "name": "birding",
     "description": "Birdwatching w kadej formie, obserwacje i dokumentacja ptaków we wszystkich biotopach i etapach życia. Fotografia ptaków zwłaszcza w ich naturalnym środowisku.",
     "cover": "cover.jpg"
   },
   {
     "path": "zwierza",
-    "name": "Animals",
+    "name": "animals",
     "description": "Obcowanie z różnymi zwierzętami od owadów przez płazy po duże ssaki. Fotografia zwierząt w ich naturalnym środowisku ale też odwiedziny lokalnych ZOO.",
     "cover": "cover.jpg"
   }
