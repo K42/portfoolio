@@ -3,7 +3,7 @@
 const equipment = [
   "Nikon Z6 II",
   "Nikkor Z 28-75 f/2.8",
-  "Nikkor Z 280-600 f/4.5-5.6",
+  "Nikkor Z 180-600 f/4.5-5.6",
   "Sigma Art 50mm f/1.4",
   "Helios 44-2 58mm f/2",
   "Ulanzi & COMAN ZERO Y",
@@ -58,6 +58,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setRandomBackground(); // Set the initial background
   setInterval(setRandomBackground, 15000); // Change background every 15 seconds
+  const cookieBar = document.getElementById("cookie-bar");
+  const cookieBarClose = document.getElementById("cookie-bar-close");
+
+  // Check if the cookie bar has already been dismissed
+  if (localStorage.getItem("cookieBarDismissed") === "true") {
+    cookieBar.style.display = "none";
+  }
+
+  // Handle the close button click
+  cookieBarClose.addEventListener("click", () => {
+    cookieBar.style.display = "none";
+    localStorage.setItem("cookieBarDismissed", "true");
+  });
 });
 
 // --- Optimized Album Rendering ---
@@ -139,7 +152,6 @@ function fetchAlbumPhotos(folder) {
     .then(list =>
       list.map(photo => ({
         src: photo.file.startsWith('http') ? photo.file : `assets/albums/${folder}/${photo.file}`,
-        desc: `assets/albums/${folder}/${photo.file.replace(/\.jpg$/i, '.txt')}`,
         title: photo.title || photo.file.replace(/\.jpg$/i, ''),
         camera: photo.camera || '',
         lens: photo.lens || '',
