@@ -9,7 +9,7 @@ const equipment = [
   "Ulanzi & COMAN ZERO Y + Sirui PH-10"
 ];
 
-const bio = `Black Kestrel to projekt fotograficzny, który rozwinął się z pasji do fotografii i chęci dzielenia się pięknem otaczającego świata. Moim celem jest uchwycenie chwil, które często umykają w codziennym zgiełku. Staram się aby każda fotografia opowiadała swoją historię, oddając emocje i atmosferę chwili.`;
+const bio = `Black Kestrel to projekt fotograficzny w którym obiektyw jest moim oknem do miejsca, gdzie naturalna dzikość przeplata się z miejskim pulsem, a kolory lasu kontrastują z industrialną melancholią. Staram się odnaleźć piękno w rozpadzie i nadzieję w przemijaniu. Przez trawy i drzewa, przez beton i stal. Przez dźwięki, ruch i emocje zatrzymane w czasie.`;
 
 // --- Cached DOM Elements ---
 let cachedElements = {};
