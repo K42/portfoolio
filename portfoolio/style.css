@@ -175,12 +175,17 @@ main {
 
 /* Slimmer and darker fonts */
 .photographer-container,
-.equipment,
 .bio,
 .portrait {
   font-family: Jura, 'Segoe UI', Arial, sans-serif;
   font-weight: 200; /* Slimmer font */
   color: #b0b0b0; /* Darker font color */
+}
+.equipment{
+  font-family: Jura, 'Segoe UI', Arial, sans-serif;
+  font-weight: 200; /* Slimmer font */
+  color: #b0b0b0; /* Darker font color */
+  line-height: 1.4;
 }
 .photographer-container hr {
   filter: brightness(0.5)
